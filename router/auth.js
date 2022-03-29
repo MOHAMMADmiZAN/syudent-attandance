@@ -1,6 +1,6 @@
+const router = require('express').Router();
 const {registerController,loginController} = require('../controllers/auth');
 const Auth = require("../middleware/Auth");
-const router = require('express').Router();
 const {registerRules, rulesMessage} = require("../utils/validationRules");
 
 
