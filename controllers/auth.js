@@ -15,8 +15,10 @@ const registerController = async (req, res, next) => {
 
 
         const {name, email, password} = req.body
+
         // rulesMessage(req,res)
         const user = await registerService({name, email, password})
+
         return res.status(200).json({
             msg: "User registered successfully"
         });
