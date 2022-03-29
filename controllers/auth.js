@@ -1,5 +1,5 @@
 const {registerService,loginService} = require("../services/auth");
-const {rulesMessage}= require("../utils/validation-rules");
+// const {rulesMessage}= require("../utils/validation-rules");
 
 
 /**
@@ -15,7 +15,7 @@ const registerController = async (req, res, next) => {
 
 
         const {name, email, password} = req.body
-        rulesMessage(req,res)
+        // rulesMessage(req,res)
         const user = await registerService({name, email, password})
         return res.status(200).json({
             msg: "User registered successfully"
