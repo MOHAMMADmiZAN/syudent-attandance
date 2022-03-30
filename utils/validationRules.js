@@ -1,4 +1,5 @@
 const {body, validationResult} = require("express-validator");
+const errorHandler =require("../utils/error");
 
 const {findUser} = require("../services/user");
 
@@ -11,9 +12,7 @@ const registerRules = [
         .matches(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,10})$/).withMessage("Email is invalid")
         .custom(async (value) => {
             const user = await findUser('email', value);
-            if (user) {
-                throw new Error("Email already exists");
-            }
+            if (user) errorHandler('Email already exists', 409);
             return true;
         }),
     body("password").not().trim().isEmpty().withMessage("Password is required")
