@@ -1,6 +1,5 @@
 const {body, validationResult} = require("express-validator");
 const errorHandler =require("../utils/error");
-
 const {findUser} = require("../services/user");
 
 const registerRules = [

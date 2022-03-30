@@ -33,7 +33,7 @@ const registerService = async ({name, email, password}) => {
 const loginService = async ({email, password}) => {
 
     const user = await findUser('email', email);
-    if (!user) throw errorHandler('User Not exists', 400);
+    if (!user) throw errorHandler('User Not exists', 409);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw errorHandler('Invalid password', 400);
     const payload = {
