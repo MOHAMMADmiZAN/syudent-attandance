@@ -1,13 +1,14 @@
 const router = require('express').Router();
 const {registerController,loginController} = require('../controllers/auth');
 const Auth = require("../middleware/Auth");
-const {registerRules, rulesMessage} = require("../utils/validationRules");
+const {schemaError, registerSchema} = require("../utils/joiValidationRules");
+
 
 
 // GET /auth/login
 
 
-router.post('/register',...registerRules,rulesMessage,registerController);
+router.post('/register',schemaError(registerSchema),registerController);
 router.post('/login', loginController)
 router.get('/private', Auth, (req, res) => {
 
