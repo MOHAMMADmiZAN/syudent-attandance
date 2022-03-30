@@ -14,6 +14,7 @@ const registerSchema = Joi.object().keys({
     email: Joi.string()
         .trim()
         .email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'org']}})
+        .normalize()
         .regex(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,10})$/)
         .required(),
     password: Joi.string()
@@ -37,7 +38,6 @@ const schemaError = (schema) => {
             .catch((err) => {
                 res.status(400).json({
                     message: err.details[0].context.key + err.details[0].message.split('\"')[2],
-
                 });
 
             });
