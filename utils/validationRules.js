@@ -2,6 +2,17 @@ const {body, validationResult} = require("express-validator");
 const errorHandler =require("../utils/error");
 const {findUser} = require("../services/user");
 
+
+/**
+ *
+ * @param msg
+ * @returns {string}
+ */
+
+ const errorFormatter = ({msg}) => {
+    return `${msg}`
+}
+
 const registerRules = [
     body("name").not().trim().isEmpty().withMessage("Name is required"),
     body("email").not().trim().isEmpty().withMessage("Email is required")
@@ -29,9 +40,9 @@ const registerRules = [
  * @returns {*}
  */
 const rulesMessage = (req, res, next) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({errors: errors.mapped()});
     }
     next();
 }
