@@ -23,7 +23,7 @@ const registerSchema = Joi.object().keys({
              })
              .catch((err)=>{
                  res.status(400).json({
-                     message: err.details[0].context.value + err.details[0].message.split('\"')[2],
+                     message: err.details[0].context.key+err.details[0].message.split('\"')[2],
 
                  });
              });
