@@ -6,6 +6,7 @@ const connectDB = require("./db");
 const app = express();
 const router = require('./router/api');
 
+
 //Global  middleware
 
 app.use([cors(), express.json(),router, morgan('dev')]);
@@ -26,6 +27,7 @@ app.use((err, req, res, next) => {
         message,
     });
 });
+
 
 
 
