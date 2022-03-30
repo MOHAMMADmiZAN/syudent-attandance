@@ -8,7 +8,7 @@ const {findUser} = require("../services/user");
  * @param msg
  * @returns {string}
  */
-
+// error message custom format for express-validator
  const errorFormatter = ({msg}) => {
     return `${msg}`
 }
