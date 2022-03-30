@@ -13,7 +13,7 @@ const registerSchema = Joi.object().keys({
         .max(30).required(),
     email: Joi.string()
         .trim()
-        .email({minDomainSegments: 2, tlds: {allow: ['com', 'net','org']}})
+        .email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'org']}})
         .regex(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,10})$/)
         .required(),
     password: Joi.string()
@@ -39,6 +39,7 @@ const schemaError = (schema) => {
                     message: err.details[0].context.key + err.details[0].message.split('\"')[2],
 
                 });
+
             });
     }
 }
