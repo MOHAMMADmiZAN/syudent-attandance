@@ -19,10 +19,12 @@ const registerSchema = Joi.object().keys({
         .required(),
     password: Joi.string()
         .trim()
-        .min(8)
-        .max(30)
         .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,30}$/)
-        .required()
+        .required().messages(
+            {
+                'string.pattern.base':'Password must contain at least one lowercase letter, one uppercase letter, one number and one special character minimum 8 characters long'
+            }
+        )
 });
 /**
  *
@@ -36,8 +38,9 @@ const schemaError = (schema) => {
                 next();
             })
             .catch((err) => {
+                let filterMessage = err.details[0].message.replace(/\"/g, '');
                 res.status(400).json({
-                    message: err.details[0].context.key + err.details[0].message.split('\"')[2],
+                    message:  filterMessage,
                 });
 
             });
