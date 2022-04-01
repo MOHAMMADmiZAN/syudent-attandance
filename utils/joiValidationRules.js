@@ -30,21 +30,21 @@ const registerSchema = Joi.object().keys({
  * @param {Joi.ObjectSchema} schema
  * @returns {(function(*, *, *))|*}
  */
-const schemaError = (schema) => {
-    return (req, res, next) => {
-        schema.validateAsync(req.body)
-            .then(() => {
-                next();
-            })
-            .catch((err) => {
-                err.details.forEach((error) => {
-                    res.status(400).json({
-                        status: 400,
-                        message: error.message.replace(/\"/g, '')
-                    });
-                })
 
-            });
+const schemaError = (schema) => {
+    return async (req, res, next) => {
+       try {
+           await schema.validateAsync(req.body, {abortEarly:false})
+           next();
+       }catch (e) {
+        const errorMsg =  e.details.reduce((acc, curr) => {
+            acc[curr.path] = curr.message.replace(/\"/g, '');
+               return acc;
+           }, {});
+         res.status(400).json({error: errorMsg});
+
+
+       }
     }
 }
 
