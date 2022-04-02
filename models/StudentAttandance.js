@@ -16,19 +16,8 @@ const StudentAttendanceSchema = new Schema({
     Admin:{
         type:Schema.Types.ObjectId,
         ref:'AdminAttendance'
-    },
-    CreatedAt:{
-        type:Date,
-        default:Date.now
-    },
-    UpdatedAt:{
-        type:Date,
-        default:Date.now
-    },
-    DeletedAt:{
-        type:Date,
-        default:null
     }
-});
+
+},{timestamps:true})
 const StudentAttendance = model('StudentAttendance',StudentAttendanceSchema);
 module.exports = StudentAttendance;

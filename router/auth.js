@@ -13,7 +13,7 @@ router.post('/register',schemaError(registerSchema),registerController);
 router.post('/login', loginController)
 router.get('/private', Auth, async (req, res) => {
  let user = await User.find()
-    res.status(200).json({
+  return   res.status(200).json({
         message: 'private route',
         user: user
     })

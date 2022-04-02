@@ -42,18 +42,7 @@ const UserSchema = new Schema({
         enum:['Pending','Approved','Rejected'],
         default:'Pending'
     },
-    createdAt:{
-        type:Date,
-        default:Date.now
-    },
-    updatedAt:{
-        type:Date,
-        default:Date.now
-    },
-    deletedAt:{
-        type:Date,
-        default:null
-    }
-});
+
+},{timestamps:true});
 const User = model('User',UserSchema);
 module.exports = User

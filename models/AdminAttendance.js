@@ -10,27 +10,16 @@ const {model,Schema }= require('mongoose')
 const AdminAttendanceSchema = new Schema({
     Status:{
         type:String,
-        enum:['Pending','Approved','Rejected'],
-        default:'Pending'
+        enum:['RUNNING','COMPLETED'],
+        default:'RUNNING'
     },
     TimeLimit:{
-        type:String,
-        default:'00:00'
+        type:Number,
+        default:'5'
 
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now()
-    },
-    updatedAt:{
-        type:Date,
-        default:Date.now()
-    },
-    deletedAt:{
-        type:Date,
-        default:null
     }
-})
+
+},{timestamps:true})
  const AdminAttendance = model('AdminAttendance',AdminAttendanceSchema)
  module.exports = AdminAttendance
 
