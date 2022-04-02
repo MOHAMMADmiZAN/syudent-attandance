@@ -42,7 +42,7 @@ const schemaError = (schema) => {
             acc[curr.path] = curr.message.replace(/\"/g, '');
                return acc;
            }, {});
-         res.status(400).json({error: errorMsg});
+         res.status(400).json({messages: errorMsg});
 
 
        }
