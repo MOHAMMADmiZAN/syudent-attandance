@@ -10,12 +10,14 @@ const {model,Schema }= require('mongoose');
 const StudentAttendanceSchema = new Schema({
     User:{
         type:Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
+        required:true
     },
 
     Admin:{
         type:Schema.Types.ObjectId,
-        ref:'AdminAttendance'
+        ref:'AdminAttendance',
+        required:true
     }
 
 },{timestamps:true})

@@ -9,7 +9,7 @@ const cors = require("cors");
 
 //Global  middleware
 
-app.use([cors(), express.json(),router])
+app.use([express.json(),cors(),router])
 
 // Global error handler
 /**
