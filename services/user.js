@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
+
 /**
  *  a new user
  * @param name
@@ -44,7 +45,16 @@ const createNewUser = async ({name, email, password, roles, accountStatus}) => {
     await user.save()
     return user
 }
+ const userDeleted = async (id) => {
+   return  User.findByIdAndDelete(id);
+
+}
+const updateUser =  (id,data)=>{
+
+   return User.findByIdAndUpdate(id,{...data},{new:true})
+}
+
 
 module.exports = {
-    newUser, findUser, findUsers, createNewUser
+    newUser, findUser, findUsers, createNewUser,userDeleted,updateUser
 }
