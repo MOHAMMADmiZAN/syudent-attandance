@@ -21,8 +21,7 @@ async function Auth(req, res, next) {
         }
         token = token.split(" ")[1];
         const Decode = jwt.verify(token, 'hash-key');
-
-        const user = await User.findOne(Decode._id);
+        const user = await User.findById(Decode.user.id);
         if (!user) {
             return res.status(401).json({
                 message: "Unauthorized"

@@ -5,7 +5,6 @@ const morgan = require("morgan");
 const Auth = require("../middleware/Auth");
 
 
-
 router.use(morgan((tokens, req, res) => {
     return JSON.stringify({
         method: tokens.method(req, res),
@@ -24,7 +23,7 @@ router.get('/health', (req, res) => {
     });
 });
 router.use('/api/v1/auth', authRoutes);
-router.use('/api/v1/users',Auth, userRoutes);
+router.use('/api/v1/users', Auth, userRoutes);
 
 
 module.exports = router;

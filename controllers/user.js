@@ -98,10 +98,10 @@ const putUser = async (req, res, next) => {
     try {
         const id = req.params.id;
         let user = await findUser('_id', id);
-        if (!user) throw error("User not found", 404);
+        if (!user) throw  error("User not found", 404);
         const {name, email, roles, accountStatus} = req.body;
         const duplicate = await findUser('email', email);
-        if (duplicate && duplicate._id !== id) throw error("Email already in use", 400);
+        if (duplicate && duplicate._id !== id) throw error("Email already in use", 409);
         user = updateUser(id, {name, email, roles, accountStatus});
         if (!user) throw error("User not updated", 400);
         return res.status(200).json({
