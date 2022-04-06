@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const authRoutes = require('./auth');
+const userRoutes = require('./user');
 const morgan = require("morgan");
+const Auth = require("../middleware/Auth");
 
 
 
@@ -22,6 +24,7 @@ router.get('/health', (req, res) => {
     });
 });
 router.use('/api/v1/auth', authRoutes);
+router.use('/api/v1/users',Auth, userRoutes);
 
 
 module.exports = router;

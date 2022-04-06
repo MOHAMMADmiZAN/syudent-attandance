@@ -31,6 +31,20 @@ const findUser = (key, value) => {
     return User.findOne({[key]: value});
 };
 
+const findUsers = () => {
+    return User.find();
+};
+
+const createNewUser = async ({name, email, password, roles, accountStatus}) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    let user = new User({
+        name, email, password: hashedPassword, roles: roles ? roles : ['USER'], accountStatus: accountStatus ? accountStatus : 'PENDING'
+    });
+    await user.save()
+    return user
+}
+
 module.exports = {
-    newUser, findUser
+    newUser, findUser, findUsers, createNewUser
 }
