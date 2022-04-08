@@ -15,9 +15,15 @@ const AdminAttendanceSchema = new Schema({
     },
     TimeLimit:{
         type:Number,
-        default:'5'
+        min:3,
+        max:20,
+        default:5
 
-    }
+    },
+    userId:{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    },
 
 },{timestamps:true})
  const AdminAttendance = model('AdminAttendance',AdminAttendanceSchema)
