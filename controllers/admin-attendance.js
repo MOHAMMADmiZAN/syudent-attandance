@@ -1,5 +1,5 @@
 const AdminAttendance = require("../models/AdminAttendance");
-const {findRunning, updateStatus} = require("../services/admin-attendance");
+const {findRunning, disableWhenTimeOut, disableWhenCall} = require("../services/admin-attendance");
 
 
 /**
@@ -18,15 +18,12 @@ const enableAttendance = async (req, res, next) => {
             });
 
         }
-            const adminAttendance = new AdminAttendance({})
-            await adminAttendance.save()
+        const adminAttendance = new AdminAttendance({})
+        await adminAttendance.save()
 
-            return res.status(200).json({
-                status: 200,
-                message: "Attendance enabled successfully",
-                data: adminAttendance
-            })
-
+        return res.status(200).json({
+            status: 200, message: "Attendance enabled successfully", data: adminAttendance
+        })
 
 
     } catch (e) {
@@ -35,53 +32,41 @@ const enableAttendance = async (req, res, next) => {
 }
 const disableAttendance = async (req, res, next) => {
     try {
-        const running = await findRunning()
-        if (!running) {
+        const completed = await disableWhenCall()
+        if (!completed) {
             return res.status(400).json({
-                message: "Attendance is not running"
+                message: "Attendance Already Completed"
             });
-        }
-      const completed =  await updateStatus()
-        console.log(completed)
-        if(!completed){
-            return res.status(400).json({
-                message: "Attendance is not completed"
-            });
-        }
+        } else {
             return res.status(200).json({
-                status: 200,
-                message: "Attendance disabled successfully"
+                status: 200, message: "Attendance Complete  successfully"
             })
-
+        }
 
 
     } catch (e) {
         next(e);
     }
-
 }
+
 
 const isAttendanceRunning = async (req, res, next) => {
     try {
         const running = await findRunning()
         if (!running) {
             return res.status(400).json({
-                message: "Attendance is not running"
+                message: "Not Running Attendance Here"
             })
         }
-        await updateStatus()
+        await disableWhenTimeOut()
 
         return res.status(200).json({
-            status: 200,
-            message: "Attendance is running",
-            data: running
+            status: 200, message: "Attendance is running", data: running
         })
     } catch (e) {
         next(e);
     }
 }
 module.exports = {
-    enableAttendance,
-    disableAttendance,
-    isAttendanceRunning
+    enableAttendance, disableAttendance, isAttendanceRunning
 }

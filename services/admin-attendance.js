@@ -7,19 +7,27 @@ const findRunning = async () => {
 
 
 }
-const updateStatus = async () => {
+const disableWhenCall = async () => {
+    const running = await findRunning();
+   if (!running){
+       return false;
+   }
+    running.Status = "COMPLETED"
+    return running.save()
+}
+const disableWhenTimeOut = async () => {
     const running = await findRunning();
     const started = addMinutes(new Date(running.createdAt), running.TimeLimit)
     const finish = isAfter(new Date(), started)
     if (finish) {
-        running.Status = "COMPLETED"
-        await running.save()
-        return true
+        await disableWhenCall()
     }
     return false
 }
 
+
 module.exports = {
     findRunning,
-    updateStatus
+    disableWhenTimeOut,
+    disableWhenCall
 }
