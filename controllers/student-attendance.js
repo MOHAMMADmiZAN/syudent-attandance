@@ -1,4 +1,3 @@
-const {findRunning} = require("../services/admin-attendance");
 const StudentAttendance = require("../models/StudentAttandance");
 const AdminAttendance = require("../models/AdminAttendance");
 
