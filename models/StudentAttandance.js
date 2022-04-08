@@ -8,13 +8,13 @@
 const {model,Schema }= require('mongoose');
 
 const StudentAttendanceSchema = new Schema({
-    User:{
+    studentId:{
         type:Schema.Types.ObjectId,
         ref:'User',
         required:true
     },
 
-    Admin:{
+    adminAttendanceId:{
         type:Schema.Types.ObjectId,
         ref:'AdminAttendance',
         required:true

@@ -54,8 +54,8 @@ const isAttendanceRunning = async (req, res, next) => {
     try {
         const running = await findRunning()
         if (!running) {
-            return res.status(400).json({
-                message: "Not Running Attendance Here"
+            res.status(404).json({
+                status: 404, message: "No running attendance found"
             })
         }
         await disableWhenTimeOut()
