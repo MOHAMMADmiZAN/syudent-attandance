@@ -1,14 +1,17 @@
 const StudentAttendance = require("../models/StudentAttandance");
 const AdminAttendance = require("../models/AdminAttendance");
+const {disableWhenTimeOut} = require("../services/admin-attendance");
 
 
 const getAttendanceStatus = async (req, res, next) => {
     try {
+        await disableWhenTimeOut()
         const runningAttendance = await AdminAttendance.findOne({
 
             Status: "RUNNING"
         });
         if (runningAttendance) {
+
             return res.status(200).json({
                 status: 200, data: runningAttendance
             })
@@ -25,11 +28,8 @@ const studentAttendance = async (req, res, next) => {
     try {
         const studentId = req.user.id
         const {id} = req.params
-        const running = await AdminAttendance.findOne({
-
-            _id: id, Status: "RUNNING"
-
-        })
+        const running = await AdminAttendance.findOne({_id: id, Status: "RUNNING"})
+        console.log(running)
         if (!running) {
             res.status(404).json({
                 status: 404, message: "No running attendance found"
