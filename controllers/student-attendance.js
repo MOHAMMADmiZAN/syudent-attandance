@@ -31,7 +31,6 @@ const studentAttendance = async (req, res, next) => {
             _id: id, Status: "RUNNING"
 
         })
-        console.log(running)
         if (!running) {
             res.status(404).json({
                 status: 404, message: "No running attendance found"
