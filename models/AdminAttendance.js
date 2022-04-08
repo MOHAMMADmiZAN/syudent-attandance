@@ -15,7 +15,7 @@ const AdminAttendanceSchema = new Schema({
     },
     TimeLimit:{
         type:Number,
-        min:3,
+        min:1,
         max:20,
         default:5
 
